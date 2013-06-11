@@ -1,7 +1,7 @@
 //Set up canvas
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
-canvas.width = 600;
+canvas.width = 800;
 canvas.height = 600;
 document.body.appendChild(canvas);
 
@@ -11,7 +11,7 @@ var bgImage = new Image();
 bgImage.onload = function () {
 	bgReady = true;
 };
-bgImage.src = "images/background.png";
+bgImage.src = "images/lava!!.gif";
 
 // Chase image
 var chaseReady = false;
