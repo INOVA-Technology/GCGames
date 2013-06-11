@@ -1,2 +1,2 @@
-GCGames
+GCGames Street Fighter
 =======
