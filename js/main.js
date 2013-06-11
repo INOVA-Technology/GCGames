@@ -52,18 +52,25 @@ addEventListener("keyup", function (e) {
 }, false);
 
 var reset = function() {
-    chase.x = canvas.width / 2;
+    chase.x = canvas.width / 2 - 40;
     chase.y =canvas.height / 2;
+
+    garrett.x = canvas.width / 2 + 40;
+    garrett.y = canvas.height / 2;
 };
 
 // Update game objects
 var update = function (modifier) {
+	
+	/*
 	if (38 in keysDown) { // Player holding up
 		chase.y -= chase.speed * modifier;
 	}
 	if (40 in keysDown) { // Player holding down
 		chase.y += chase.speed * modifier;
 	}
+	*/
+
 	if (37 in keysDown) { // Player holding left
 		chase.x -= chase.speed * modifier;
 	}
