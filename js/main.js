@@ -98,6 +98,7 @@ var render = function () {
 	ctx.font = "24px Helvetica";
 	ctx.textAlign = "left";
 	ctx.textBaseline = "top";
+	ctx.fillText("Health:", 32, 32);
 };
 
 // The main game loop
