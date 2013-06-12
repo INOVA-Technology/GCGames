@@ -79,7 +79,7 @@ addEventListener("keyup", function (e) {
 }, false);
 
 function jump(player) {
-	var jumpTime = 150,
+	var jumpTime = 250,
 		height = 15,
 		jumpSpeed = 40,
 		i;
@@ -97,7 +97,7 @@ function jump(player) {
 				clearInterval(i);
 			}, jumpTime);
 			i = setInterval( function() {
-				player.y += player.speed  / height;
+				player.y += player.speed / height;
 			}, 40);
 		}, jumpTime);
 	}
