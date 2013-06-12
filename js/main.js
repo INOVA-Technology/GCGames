@@ -41,15 +41,25 @@ var keysDown = {};
 addEventListener("keydown", function (e) {
 	keysDown[e.keyCode] = true;
 	if (e.keyCode == 87 || e.keyCode == 38) {
-		var jumpTime = 150,
-			height = 15,
-			jumpSpeed = 40,
 
-			// this is a ternaery if statement below aka. Conditional Operator
-			// more info here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
-			player = (e.keyCode === 87) ? chase : garrett,
-			i;
+		// this is a ternaery if statement below aka. Conditional Operator
+		// more info here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
+		player = (e.keyCode === 87) ? chase : garrett,
+		jump(player);
+	}
+}, false);
 
+addEventListener("keyup", function (e) {
+	delete keysDown[e.keyCode];
+}, false);
+
+function jump(player) {
+	var jumpTime = 150,
+		height = 15,
+		jumpSpeed = 40,
+		i;
+
+	if (player.y == canvas.height - 40) {
 		setTimeout(function() {
 			clearInterval(i);
 		}, jumpTime);
@@ -66,11 +76,7 @@ addEventListener("keydown", function (e) {
 			}, 40);
 		}, jumpTime);
 	}
-}, false);
-
-addEventListener("keyup", function (e) {
-	delete keysDown[e.keyCode];
-}, false);
+}
 
 var reset = function() {
     chase.x = canvas.width / 2 - 40;
