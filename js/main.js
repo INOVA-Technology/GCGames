@@ -4,6 +4,9 @@ var languages = {
 	},
 	"spanish": {
 		health: "Salud"
+	},
+	"french": {
+		health: "Santé"
 	}
 }
 
