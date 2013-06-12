@@ -82,26 +82,29 @@ addEventListener("keyup", function (e) {
 }, false);
 
 function jump(player) {
-	var jumpTime = 400,
-		height = 15,
-		jumpSpeed = 40,
-		i;
+	var jumpTime = 250,
+	height = 20, // the higher the height is, the lower the jump is.
+	intervals = 8, // make this higher for a smoother jump
+	i;
 
 	if (player.y == canvas.height - 40) {
+
+		var i = setInterval( function() {
+			player.y -= player.speed / height;
+		}, jumpTime / intervals);
+
 		setTimeout(function() {
 			clearInterval(i);
 		}, jumpTime);
-		i = setInterval( function() {
-			player.y -= player.speed / height;
-		}, jumpSpeed);
 
 		setTimeout(function() {
-			setTimeout(function() {
-				clearInterval(i);
-			}, jumpTime);
-			i = setInterval( function() {
-				player.y += player.speed  / height;
-			}, 40);
+			var i1 = setInterval( function() {
+				player.y += player.speed / height;
+				if ( player.y >= canvas.height - 40) {
+					clearInterval(i1);
+					player.y == 8;
+				}
+			}, jumpTime / intervals);
 		}, jumpTime);
 	}
 }
