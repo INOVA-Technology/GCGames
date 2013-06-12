@@ -3,15 +3,8 @@ var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 600;
+canvas.style.background = "url(images/lava!!.gif) no-repeat"
 document.body.appendChild(canvas);
-
-// Background image
-var bgReady = false;
-var bgImage = new Image();
-bgImage.onload = function () {
-	bgReady = true;
-};
-bgImage.src = "images/lava!!.gif";
 
 // Chase image
 var chaseReady = false;
@@ -81,9 +74,6 @@ var update = function (modifier) {
 
 // Draw everything
 var render = function () {
-	if (bgReady) {
-		ctx.drawImage(bgImage, 0, 0);
-	}
 
 	if (chaseReady) {
 		ctx.drawImage(chaseImage, chase.x, chase.y);
