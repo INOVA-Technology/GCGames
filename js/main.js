@@ -12,6 +12,16 @@ document.getElementById('lang').addEventListener('change', function() {
 	lang = this.value;
 }, false);
 
+function collide(object1, object2) {
+	if (object1.x + object1.width >= object2.x && object2.x + object2.width >= object1.x) {
+		if (object1.x + object1.width <= object2.x + object2.width / 2) {
+			return "right";
+		} else {
+			return "left";
+		}
+	}
+}
+
 //Set up canvas
 var canvas = document.getElementById("gameCanvas");
 var ctx = canvas.getContext("2d");
@@ -38,12 +48,16 @@ garrettImage.src = "images/garrett.png";
 var chase = {
 	speed: 256, // movement in pixels per second
 	x: 0,
-	y: 0
+	y: 0,
+	width: 32,
+	height: 32
 };
 var garrett = {
 	speed: 256,
 	x: 0,
-	y: 0
+	y: 0,
+	width: 32,
+	height: 32
 };
 
 // Handle keyboard controls
@@ -101,24 +115,24 @@ var reset = function() {
 var update = function (modifier) {
 	
 	
-	if (65 in keysDown) { // Player holding up
+	if (65 in keysDown) { // Player holding left
 		if (chase.x > 0) {
 			chase.x -= chase.speed * modifier;
 		}
 	}
-	if (68 in keysDown) { // Player holding down
-		if (chase.x < canvas.width - 32) {
+	if (68 in keysDown) { // Player holding right
+		if (chase.x < canvas.width - chase.width && !(collide(chase, garrett) === "right")) {
 			chase.x += chase.speed * modifier;
 		}
 	}
 
 	if (37 in keysDown) { // Player holding left
-		if (garrett.x > 0) {
+		if (garrett.x > 0 && !(collide(chase, garrett) === "right")) {
 			garrett.x -= garrett.speed * modifier;
 		}
 	}
 	if (39 in keysDown) { // Player holding right
-		if (garrett.x < canvas.width - 32) {
+		if (garrett.x < canvas.width - garrett.width) {
 			garrett.x += garrett.speed * modifier;
 		}
 	}
