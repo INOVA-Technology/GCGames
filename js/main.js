@@ -39,6 +39,32 @@ var keysDown = {};
 
 addEventListener("keydown", function (e) {
 	keysDown[e.keyCode] = true;
+	if (e.keyCode == 87 || e.keyCode == 38) {
+		var jumpTime = 150,
+			height = 15,
+			jumpSpeed = 40,
+
+			// this is a ternaery if statement below aka. Conditional Operator
+			// more info here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
+			player = (e.keyCode === 87) ? chase : garrett,
+			i;
+
+		setTimeout(function() {
+			clearInterval(i);
+		}, jumpTime);
+		i = setInterval( function() {
+			player.y -= player.speed / height;
+		}, jumpSpeed);
+
+		setTimeout(function() {
+			setTimeout(function() {
+				clearInterval(i);
+			}, jumpTime);
+			i = setInterval( function() {
+				player.y += player.speed  / height;
+			}, 40);
+		}, jumpTime);
+	}
 }, false);
 
 addEventListener("keyup", function (e) {
@@ -63,7 +89,6 @@ var update = function (modifier) {
 	if (68 in keysDown) { // Player holding down
 		chase.x += chase.speed * modifier;
 	}
-	
 
 	if (37 in keysDown) { // Player holding left
 		garrett.x -= garrett.speed * modifier;
