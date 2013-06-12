@@ -1,11 +1,22 @@
+var languages = {
+	"english": {
+		health: "Health"
+	},
+	"spanish": {
+		health: "Salud"
+	}
+}
+
+var lang = "english";
+document.getElementById('lang').addEventListener('change', function() {
+	lang = this.value;
+}, false);
+
 //Set up canvas
-var canvas = document.createElement("canvas");
+var canvas = document.getElementById("gameCanvas");
 var ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 336;
-canvas.className += "canvas";
-canvas.style.background = "url(images/lava!!.gif) no-repeat";
-document.body.appendChild(canvas);
 
 // Chase image
 var chaseReady = false;
@@ -131,7 +142,7 @@ var render = function () {
 	ctx.font = "24px Helvetica";
 	ctx.textAlign = "left";
 	ctx.textBaseline = "top";
-	ctx.fillText("Health:", 32, 32);
+	ctx.fillText(languages[lang]["health"] + ":", 32, 32);
 };
 
 // The main game loop

@@ -11,7 +11,13 @@ html, body {
 	/* we might want to add media queries */
 }
 
-.canvas {
+#gameCanvas {
 	margin: 75px auto;
 	display: block;
+	background: url(../images/lava!!.gif) no-repeat;
+}
+
+#lang {
+	float: right;
+	margin: 50px 250px 0 0;
 }
