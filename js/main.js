@@ -91,17 +91,25 @@ var update = function (modifier) {
 	
 	
 	if (65 in keysDown) { // Player holding up
-		chase.x -= chase.speed * modifier;
+		if (chase.x > 0) {
+			chase.x -= chase.speed * modifier;
+		}
 	}
 	if (68 in keysDown) { // Player holding down
-		chase.x += chase.speed * modifier;
+		if (chase.x < canvas.width - 32) {
+			chase.x += chase.speed * modifier;
+		}
 	}
 
 	if (37 in keysDown) { // Player holding left
-		garrett.x -= garrett.speed * modifier;
+		if (garrett.x > 0) {
+			garrett.x -= garrett.speed * modifier;
+		}
 	}
 	if (39 in keysDown) { // Player holding right
-		garrett.x += garrett.speed * modifier;
+		if (garrett.x < canvas.width - 32) {
+			garrett.x += garrett.speed * modifier;
+		}
 	}
 };
 
