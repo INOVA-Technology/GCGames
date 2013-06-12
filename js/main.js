@@ -82,9 +82,9 @@ addEventListener("keyup", function (e) {
 }, false);
 
 function jump(player) {
-	var jumpTime = 250,
+	var jumpTime = 400,
 	height = 20, // the higher the height is, the lower the jump is.
-	intervals = 8, // make this higher for a smoother jump
+	intervals = 15, // make this higher for a smoother jump
 	i;
 
 	if (player.y == canvas.height - 40) {
