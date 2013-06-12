@@ -29,6 +29,7 @@ var chase = {
 	y: 0
 };
 var garrett = {
+	speed: 256,
 	x: 0,
 	y: 0
 };
@@ -55,14 +56,14 @@ var reset = function() {
 // Update game objects
 var update = function (modifier) {
 	
-	/*
-	if (38 in keysDown) { // Player holding up
-		chase.y -= chase.speed * modifier;
+	
+	if (65 in keysDown) { // Player holding up
+		garrett.x -= garrett.speed * modifier;
 	}
-	if (40 in keysDown) { // Player holding down
-		chase.y += chase.speed * modifier;
+	if (68 in keysDown) { // Player holding down
+		garrett.x += garrett.speed * modifier;
 	}
-	*/
+	
 
 	if (37 in keysDown) { // Player holding left
 		chase.x -= chase.speed * modifier;
@@ -74,6 +75,8 @@ var update = function (modifier) {
 
 // Draw everything
 var render = function () {
+	
+	ctx.clearRect ( 0 , 0 , 800 , 600 );
 
 	if (chaseReady) {
 		ctx.drawImage(chaseImage, chase.x, chase.y);
