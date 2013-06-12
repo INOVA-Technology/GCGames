@@ -1,0 +1,17 @@
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+	margin: 0;
+	overflow: hidden;
+	/* we might want to add media queries */
+}
+
+.canvas {
+	margin: 75px auto;
+	display: block;
+}

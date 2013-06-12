@@ -2,8 +2,9 @@
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
 canvas.width = 800;
-canvas.height = 600;
-canvas.style.background = "url(images/lava!!.gif) no-repeat"
+canvas.height = 336;
+canvas.className += "canvas";
+canvas.style.background = "url(images/lava!!.gif) no-repeat";
 document.body.appendChild(canvas);
 
 // Chase image
@@ -73,10 +74,10 @@ addEventListener("keyup", function (e) {
 
 var reset = function() {
     chase.x = canvas.width / 2 - 40;
-    chase.y = canvas.height / 2;
+    chase.y = canvas.height - 40;
 
     garrett.x = canvas.width / 2 + 40;
-    garrett.y = canvas.height / 2;
+    garrett.y = canvas.height - 40;
 };
 
 // Update game objects
