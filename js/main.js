@@ -47,7 +47,7 @@ addEventListener("keyup", function (e) {
 
 var reset = function() {
     chase.x = canvas.width / 2 - 40;
-    chase.y =canvas.height / 2;
+    chase.y = canvas.height / 2;
 
     garrett.x = canvas.width / 2 + 40;
     garrett.y = canvas.height / 2;
@@ -58,25 +58,25 @@ var update = function (modifier) {
 	
 	
 	if (65 in keysDown) { // Player holding up
-		garrett.x -= garrett.speed * modifier;
+		chase.x -= chase.speed * modifier;
 	}
 	if (68 in keysDown) { // Player holding down
-		garrett.x += garrett.speed * modifier;
+		chase.x += chase.speed * modifier;
 	}
 	
 
 	if (37 in keysDown) { // Player holding left
-		chase.x -= chase.speed * modifier;
+		garrett.x -= garrett.speed * modifier;
 	}
 	if (39 in keysDown) { // Player holding right
-		chase.x += chase.speed * modifier;
+		garrett.x += garrett.speed * modifier;
 	}
 };
 
 // Draw everything
 var render = function () {
 	
-	ctx.clearRect ( 0 , 0 , 800 , 600 );
+	ctx.clearRect ( 0 , 0 , canvas.width , canvas.height );
 
 	if (chaseReady) {
 		ctx.drawImage(chaseImage, chase.x, chase.y);
