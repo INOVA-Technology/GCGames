@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Stalinist+One);
 * {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -20,4 +21,11 @@ html, body {
 #lang {
 	float: right;
 	margin: 50px 250px 0 0;
+}
+
+#header {
+	text-align: center;
+	font-size: 60px;
+	color: #005893;
+	font-family: 'Stalinist One', cursive;
 }

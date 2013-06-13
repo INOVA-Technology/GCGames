@@ -2,11 +2,13 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Name Of Game</title>
+	<title>GC FIGHTER</title>
 	<link href="css/GCSF.css" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Stalinist+One' rel='stylesheet' type='text/css'>
 </head>
 <body>
-
+	<h1 id="header">GC FIGHTER</h1>
+	<br />
 	<select name="" id="lang">
 		<option value="english" selected>English</option>
 		<option value="spanish">Spanish</option>
@@ -15,5 +17,18 @@
 	<canvas id="gameCanvas"></canvas>
 
 <script src="js/main.js"></script>
+<script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Stalinist+One::latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })(); </script>
 </body>
 </html>
