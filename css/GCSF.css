@@ -9,6 +9,7 @@ html, body {
 	height: 100%;
 	margin: 0;
 	overflow: hidden;
+	background-color: black;
 	/* we might want to add media queries */
 }
 
