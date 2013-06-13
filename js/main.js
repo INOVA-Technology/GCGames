@@ -16,12 +16,8 @@ document.getElementById('lang').addEventListener('change', function() {
 }, false);
 
 function collide(object1, object2) {
-	if (object1.x + object1.width >= object2.x && object2.x + object2.width >= object1.x) {
-		if (object1.x + object1.width <= object2.x + object2.width / 2) {
+	if (object1.x + object1.width >= object2.x && object1.x + object1.width <= object2.x + object2.width / 2) {
 			return "right";
-		} else {
-			return "left";
-		}
 	}
 }
 
@@ -31,15 +27,7 @@ var ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 336;
 
-// Chase image
-var chaseReady = false;
-var chaseImage = new Image();
-chaseImage.onload = function () {
-	chaseReady = true;
-};
-chaseImage.src = "images/chase.png";
-
-// Garrett image
+// garrett image
 var garrettReady = false;
 var garrettImage = new Image();
 garrettImage.onload = function () {
@@ -47,15 +35,23 @@ garrettImage.onload = function () {
 };
 garrettImage.src = "images/garrett.png";
 
+// chase image
+var chaseReady = false;
+var chaseImage = new Image();
+chaseImage.onload = function () {
+	chaseReady = true;
+};
+chaseImage.src = "images/chase.png";
+
 // Game objects
-var chase = {
+var garrett = {
 	speed: 256, // movement in pixels per second
 	x: 0,
 	y: 0,
 	width: 60,
 	height: 60
 };
-var garrett = {
+var chase = {
 	speed: 256,
 	x: 0,
 	y: 0,
@@ -63,7 +59,7 @@ var garrett = {
 	height: 60
 };
 
-heightFromGround = 68;
+heightFromGround = garrett.height + 8;
 
 // Handle keyboard controls
 var keysDown = {};
@@ -74,7 +70,7 @@ addEventListener("keydown", function (e) {
 
 		// this is a ternaery if statement below aka. Conditional Operator
 		// more info here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
-		player = (e.keyCode === 38) ? chase : garrett,
+		player = (e.keyCode === 38) ? garrett : chase,
 		jump(player);
 	}
 }, false);
@@ -112,36 +108,36 @@ function jump(player) {
 }
 
 var reset = function() {
-    chase.x = canvas.width / 2 + 40;
-    chase.y = canvas.height - heightFromGround;
-
     garrett.x = canvas.width / 2 - 40;
     garrett.y = canvas.height - heightFromGround;
+
+    chase.x = canvas.width / 2 + 40;
+    chase.y = canvas.height - heightFromGround;
 };
 
 // Update game objects
 var update = function (modifier) {
 	
 	
-	if (37 in keysDown) { // Player holding left
-		if (chase.x > 0) {
-			chase.x -= chase.speed * modifier;
-		}
-	}
-	if (39 in keysDown) { // Player holding right
-		if (chase.x < canvas.width - chase.width && !(collide(chase, garrett) === "right")) {
-			chase.x += chase.speed * modifier;
-		}
-	}
-
 	if (65 in keysDown) { // Player holding left
-		if (garrett.x > 0 && !(collide(chase, garrett) === "right")) {
+		if (garrett.x > 0) {
 			garrett.x -= garrett.speed * modifier;
 		}
 	}
 	if (68 in keysDown) { // Player holding right
-		if (garrett.x < canvas.width - garrett.width) {
+		if (garrett.x < canvas.width - garrett.width && !(collide(garrett, chase) === "right")) {
 			garrett.x += garrett.speed * modifier;
+		}
+	}
+
+	if (37 in keysDown) { // Player holding left
+		if (chase.x > 0 && !(collide(garrett, chase) === "right")) {
+			chase.x -= chase.speed * modifier;
+		}
+	}
+	if (39 in keysDown) { // Player holding right
+		if (chase.x < canvas.width - chase.width) {
+			chase.x += chase.speed * modifier;
 		}
 	}
 };
@@ -151,12 +147,12 @@ var render = function () {
 	
 	ctx.clearRect ( 0 , 0 , canvas.width , canvas.height );
 
-	if (chaseReady) {
-		ctx.drawImage(chaseImage, chase.x, chase.y);
-	}
-
 	if (garrettReady) {
 		ctx.drawImage(garrettImage, garrett.x, garrett.y);
+	}
+
+	if (chaseReady) {
+		ctx.drawImage(chaseImage, chase.x, chase.y);
 	}
 
 	// Score
