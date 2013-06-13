@@ -13,7 +13,7 @@ var languages = {
 	}
 }
 var go = false;
-
+var rect;
 
 var lang = "english";
 document.getElementById('lang').addEventListener('change', function() {
@@ -155,7 +155,13 @@ var menu = function () {
 	ctx.font = "24px Helvetica";
 	ctx.textAlign = "left";
 	ctx.textBaseline = "middle";
-	ctx.fillText(languages[lang]["play"] + "!", 32, 32);
+	rect = {
+    x: 32,
+    y: 32,
+    w: 70,
+    h: 30
+};
+	ctx.fillText("play", rect.x, rect.y + 16);
 }
 
 // Draw game
@@ -190,12 +196,33 @@ var main = function () {
 	then = now;
 };
 
+canvas.addEventListener('click', checkStart, false);
+
+    function checkStart(e) {
+        var p = getMousePos(e);
+
+        if (p.x >= rect.x && p.x <= rect.x + rect.w &&
+            p.y >= rect.y && p.y <= rect.y + rect.h) {
+            
+            go = !go;
+            if (go === true) {
+            	// Let's play this game!
+                reset();
+				var then = Date.now();
+				setInterval(main, 1); // Execute as fast as possible
+            } else {
+                menu();
+            }
+        }
+    }
+
+        function getMousePos(e) {
+            var r = canvas.getBoundingClientRect();
+            return {
+                x: e.clientX - r.left,
+                y: e.clientY - r.top
+            };
+        }
+
 // Let's play this game!
-if (go == true) {
-reset();
-var then = Date.now();
-setInterval(main, 1); // Execute as fast as possible
-}
-else {
-menu();
-}
+
