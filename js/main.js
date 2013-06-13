@@ -1,14 +1,19 @@
 var languages = {
 	"english": {
-		health: "Health"
+		health: "Health",
+		play: "Play"
 	},
 	"spanish": {
-		health: "Salud"
+		health: "Salud",
+		play: "Jugar"
 	},
 	"french": {
-		health: "Santé"
+		health: "Santé",
+		play: "Jouer"
 	}
 }
+var go = false;
+
 
 var lang = "english";
 document.getElementById('lang').addEventListener('change', function() {
@@ -142,7 +147,18 @@ var update = function (modifier) {
 	}
 };
 
-// Draw everything
+var menu = function () {
+
+	ctx.clearRect (0 , 0 , canvas.width , canvas.height);
+
+	ctx.fillStyle = "rgb(250, 250, 250)";
+	ctx.font = "24px Helvetica";
+	ctx.textAlign = "left";
+	ctx.textBaseline = "middle";
+	ctx.fillText(languages[lang]["play"] + "!", 32, 32);
+}
+
+// Draw game
 var render = function () {
 	
 	ctx.clearRect ( 0 , 0 , canvas.width , canvas.height );
@@ -155,7 +171,7 @@ var render = function () {
 		ctx.drawImage(chaseImage, chase.x, chase.y);
 	}
 
-	// Score
+	// Health
 	ctx.fillStyle = "rgb(250, 250, 250)";
 	ctx.font = "24px Helvetica";
 	ctx.textAlign = "left";
@@ -175,6 +191,11 @@ var main = function () {
 };
 
 // Let's play this game!
+if (go == true) {
 reset();
 var then = Date.now();
 setInterval(main, 1); // Execute as fast as possible
+}
+else {
+menu();
+}
