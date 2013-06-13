@@ -63,6 +63,8 @@ var garrett = {
 	height: 60
 };
 
+heightFromGround = 68;
+
 // Handle keyboard controls
 var keysDown = {};
 
@@ -72,7 +74,7 @@ addEventListener("keydown", function (e) {
 
 		// this is a ternaery if statement below aka. Conditional Operator
 		// more info here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
-		player = (e.keyCode === 87) ? chase : garrett,
+		player = (e.keyCode === 38) ? chase : garrett,
 		jump(player);
 	}
 }, false);
@@ -87,7 +89,7 @@ function jump(player) {
 	intervals = 15, // make this higher for a smoother jump
 	i;
 
-	if (player.y == canvas.height - 40) {
+	if (player.y == canvas.height - heightFromGround) {
 
 		var i = setInterval( function() {
 			player.y -= player.speed / height;
@@ -100,7 +102,7 @@ function jump(player) {
 		setTimeout(function() {
 			var i1 = setInterval( function() {
 				player.y += player.speed / height;
-				if ( player.y >= canvas.height - 40) {
+				if ( player.y >= canvas.height - heightFromGround) {
 					clearInterval(i1);
 					player.y == 8;
 				}
@@ -111,33 +113,33 @@ function jump(player) {
 
 var reset = function() {
     chase.x = canvas.width / 2 + 40;
-    chase.y = canvas.height - 40;
+    chase.y = canvas.height - heightFromGround;
 
     garrett.x = canvas.width / 2 - 40;
-    garrett.y = canvas.height - 40;
+    garrett.y = canvas.height - heightFromGround;
 };
 
 // Update game objects
 var update = function (modifier) {
 	
 	
-	if (65 in keysDown) { // Player holding left
+	if (37 in keysDown) { // Player holding left
 		if (chase.x > 0) {
 			chase.x -= chase.speed * modifier;
 		}
 	}
-	if (68 in keysDown) { // Player holding right
+	if (39 in keysDown) { // Player holding right
 		if (chase.x < canvas.width - chase.width && !(collide(chase, garrett) === "right")) {
 			chase.x += chase.speed * modifier;
 		}
 	}
 
-	if (37 in keysDown) { // Player holding left
+	if (65 in keysDown) { // Player holding left
 		if (garrett.x > 0 && !(collide(chase, garrett) === "right")) {
 			garrett.x -= garrett.speed * modifier;
 		}
 	}
-	if (39 in keysDown) { // Player holding right
+	if (68 in keysDown) { // Player holding right
 		if (garrett.x < canvas.width - garrett.width) {
 			garrett.x += garrett.speed * modifier;
 		}
