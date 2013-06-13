@@ -70,7 +70,7 @@ addEventListener("keydown", function (e) {
 
 		// this is a ternaery if statement below aka. Conditional Operator
 		// more info here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
-		player = (e.keyCode === 38) ? garrett : chase,
+		player = (e.keyCode === 87) ? garrett : chase,
 		jump(player);
 	}
 }, false);
