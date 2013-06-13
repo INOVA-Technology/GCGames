@@ -52,15 +52,15 @@ var chase = {
 	speed: 256, // movement in pixels per second
 	x: 0,
 	y: 0,
-	width: 32,
-	height: 32
+	width: 60,
+	height: 60
 };
 var garrett = {
 	speed: 256,
 	x: 0,
 	y: 0,
-	width: 32,
-	height: 32
+	width: 60,
+	height: 60
 };
 
 // Handle keyboard controls
