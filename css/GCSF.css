@@ -1,16 +1,22 @@
 @import url(http://fonts.googleapis.com/css?family=Stalinist+One);
+
 * {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
-html, body {
+body {
+	background: #bababa; /* Old browsers */
+	background: -moz-linear-gradient(top,  #bababa 0%, #545454 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bababa), color-stop(100%,#545454)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #bababa 0%,#545454 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #bababa 0%,#545454 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #bababa 0%,#545454 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #bababa 0%,#545454 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bababa', endColorstr='#545454',GradientType=0 ); /* IE6-9 */
+	/*padding-top: 40px;*/
 	height: 100%;
-	margin: 0;
-	overflow: hidden;
-	background-color: black;
-	/* we might want to add media queries */
 }
 
 #gameCanvas {
@@ -27,6 +33,6 @@ html, body {
 #header {
 	text-align: center;
 	font-size: 60px;
-	color: #005893;
-	font-family: 'Stalinist One', cursive;
+	color: rgba(22, 53, 78, 0.65);
+	font-family: 'Stalinist One', sans-serif;
 }
