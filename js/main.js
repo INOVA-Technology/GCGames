@@ -110,10 +110,10 @@ function jump(player) {
 }
 
 var reset = function() {
-    chase.x = canvas.width / 2 - 40;
+    chase.x = canvas.width / 2 + 40;
     chase.y = canvas.height - 40;
 
-    garrett.x = canvas.width / 2 + 40;
+    garrett.x = canvas.width / 2 - 40;
     garrett.y = canvas.height - 40;
 };
 
