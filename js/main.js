@@ -56,16 +56,16 @@ var garrett = {
 	speed: 256, // movement in pixels per second
 	x: 0,
 	y: 0,
-	width: 60,
-	height: 60,
+	width: 55,
+	height: 53,
 	health: 100
 };
 var chase = {
 	speed: 256,
 	x: 0,
 	y: 0,
-	width: 60,
-	height: 60,
+	width: 55,
+	height: 53,
 	health: 100
 };
 
