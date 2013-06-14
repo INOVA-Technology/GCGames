@@ -66,7 +66,8 @@ var garrett = {
 	y: 0,
 	width: 60,
 	height: 60,
-	health: 100
+	health: 100,
+	isFiring: false
 };
 var chase = {
 	speed: 256,
@@ -74,7 +75,8 @@ var chase = {
 	y: 0,
 	width: 60,
 	height: 60,
-	health: 100
+	health: 100,
+	isFiring: false
 };
 var fire = {
     speed: 300,
@@ -84,8 +86,6 @@ var fire = {
     height: 30,
     damage: 10
 };
-
-isFiring = false
 
 heightFromGround = garrett.height + 1;
 
@@ -105,23 +105,42 @@ addEventListener("keydown", function (e) {
 	if (e.keyCode === 69 && go && fireReady) {
 		fire.x = garrett.x;
 		fire.y = garrett.y;
-		isFiring = true;
-        firefunction();
+		garrett.isFiring = true;
+        firefunction(garrett);
+	}
+
+	if (e.keyCode === 16 && go && fireReady) {
+		fire.x = chase.x;
+		fire.y = chase.y;
+		chase.isFiring = true;
+		firefunction(chase);
 	}
 }, false);
 
-var firefunction = function () {
+var firefunction = function (player) {
+	enemy = (player === garrett) ? chase : garrett
 	var i = setInterval(function() {
-		fire.x += 50;
 		//Hit? Maybe. Dead? idk
-		if (fire.x + fire.width >= chase.x) {
-			clearInterval(i);
-			isFiring = false;
-	        chase.health -= fire.damage;
-	        console.log(chase.health);
-		} else if (fire.x + fire.width >= canvas.width) {
-			clearInterval(i);
-			isFiring = false;
+		if (player === garrett) {
+			fire.x += 50;
+			if (fire.x + fire.width >= enemy.x) {
+				clearInterval(i);
+				player.isFiring = false;
+		        enemy.health -= fire.damage;
+			} else if (fire.x + fire.width >= canvas.width) {
+				clearInterval(i);
+				player.isFiring = false;
+			}
+		} else {
+			fire.x -= 50;
+			if (fire.x <= enemy.x + enemy.width) {
+				clearInterval(i);
+				player.isFiring = false;
+		        enemy.health -= fire.damage;
+			} else if (fire.x <= 0) {
+				clearInterval(i);
+				player.isFiring = false;
+			}
 		}
 	}, 25);
 }
@@ -262,7 +281,11 @@ var render = function () {
 		ctx.drawImage(chaseImage, chase.x, chase.y);
 	}
 
-	if (isFiring) {
+	if (garrett.isFiring) {
+		ctx.drawImage(fireImage, fire.x, fire.y);
+	}
+
+	if (chase.isFiring) {
 		ctx.drawImage(fireImage, fire.x, fire.y);
 	}
 
