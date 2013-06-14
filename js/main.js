@@ -18,6 +18,9 @@ var rect;
 var lang = "english";
 document.getElementById('lang').addEventListener('change', function() {
 	lang = this.value;
+	if (!go) {
+		menu();
+	}
 }, false);
 
 function collide(object1, object2) {
@@ -156,18 +159,13 @@ var menu = function () {
 	ctx.textAlign = "left";
 	ctx.textBaseline = "middle";
 	rect = {
-    x: 32,
-    y: 32,
-    w: 70,
-    h: 30
+	    x: 32,
+	    y: 32,
+	    w: 70,
+	    h: 30
 	};
-	ctx.fillText(languages[lang]["play"] + ":", rect.x, rect.y + 16);
-	setTimeout(menu, 10);
-    
+	ctx.fillText(languages[lang]["play"] + ":", rect.x, rect.y + 16);    
 }
-
-menu();
-
 
 canvas.addEventListener('click', checkStart, false);
 	function checkStart(e) {
@@ -177,7 +175,7 @@ canvas.addEventListener('click', checkStart, false);
             p.y >= rect.y && p.y <= rect.y + rect.h) {
             
             go = !go;
-            if (go === true) {
+            if (go) {
             	// Let's play this game!
             	var main = function () {
 					var now = Date.now();
@@ -235,4 +233,4 @@ var render = function () {
 
     
 // Let's play this game!
-
+menu();
