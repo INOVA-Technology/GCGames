@@ -161,7 +161,8 @@ var menu = function () {
     w: 70,
     h: 30
 	};
-	ctx.fillText("play", rect.x, rect.y + 16);
+	ctx.fillText(languages[lang]["play"] + ":", rect.x, rect.y + 16);
+	setTimeout(menu, 10);
     
 }
 
