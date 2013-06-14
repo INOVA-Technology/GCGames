@@ -103,46 +103,45 @@ addEventListener("keydown", function (e) {
 	}
 
 	if (e.keyCode === 69 && go && fireReady) {
-		fire.x = garrett.x;
-		fire.y = garrett.y;
-		garrett.isFiring = true;
         firefunction(garrett);
 	}
 
 	if (e.keyCode === 16 && go && fireReady) {
-		fire.x = chase.x;
-		fire.y = chase.y;
-		chase.isFiring = true;
 		firefunction(chase);
 	}
 }, false);
 
 var firefunction = function (player) {
-	enemy = (player === garrett) ? chase : garrett
-	var i = setInterval(function() {
-		//Hit? Maybe. Dead? idk
-		if (player === garrett) {
-			fire.x += 50;
-			if (fire.x + fire.width >= enemy.x) {
-				clearInterval(i);
-				player.isFiring = false;
-		        enemy.health -= fire.damage;
-			} else if (fire.x + fire.width >= canvas.width) {
-				clearInterval(i);
-				player.isFiring = false;
+	if (!player.isFiring) {
+		fire.x = player.x;
+		fire.y = player.y;
+		player.isFiring = true;
+		enemy = (player === garrett) ? chase : garrett;
+		var i = setInterval(function() {
+			//Hit? Maybe. Dead? idk
+			if (player === garrett) {
+				fire.x += 50;
+				if (fire.x + fire.width >= enemy.x && fire.y + fire.height >= enemy.y && fire.y <= enemy.y + enemy.height) {
+					clearInterval(i);
+					player.isFiring = false;
+			        enemy.health -= fire.damage;
+				} else if (fire.x + fire.width >= canvas.width) {
+					clearInterval(i);
+					player.isFiring = false;
+				}
+			} else {
+				fire.x -= 50;
+				if (fire.x <= enemy.x + enemy.width && fire.y + fire.height >= enemy.y && fire.y <= enemy.y + enemy.height) {
+					clearInterval(i);
+					player.isFiring = false;
+			        enemy.health -= fire.damage;
+				} else if (fire.x <= 0) {
+					clearInterval(i);
+					player.isFiring = false;
+				}
 			}
-		} else {
-			fire.x -= 50;
-			if (fire.x <= enemy.x + enemy.width) {
-				clearInterval(i);
-				player.isFiring = false;
-		        enemy.health -= fire.damage;
-			} else if (fire.x <= 0) {
-				clearInterval(i);
-				player.isFiring = false;
-			}
-		}
-	}, 25);
+		}, 25);
+	}
 }
 
 addEventListener("keyup", function (e) {
@@ -294,14 +293,9 @@ var render = function () {
 	ctx.font = "24px Helvetica";
 	ctx.textAlign = "left";
 	ctx.textBaseline = "top";
-	ctx.fillText("Chase's " + languages[lang]["health"] + ": " + chase.health + "    " + "Garrett's " + languages[lang]["health"] + ": " + garrett.health, 32, 32);
+	ctx.fillText("Garrett's " + languages[lang]["health"] + ": " + garrett.health, 32, 32);
+	ctx.fillText("Chase's " + languages[lang]["health"] + ": " + chase.health, canvas.width - 250, 32);
 };
 
-// The main game loop
-
-
-
-
-    
 // Let's play this game!
 menu();
