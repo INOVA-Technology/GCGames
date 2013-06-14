@@ -57,7 +57,7 @@ var fireImage = new Image();
 fireImage.onload = function () {
 	fireReady = true;
 };
-fireImage.src = "images/blue fire.png";
+fireImage.src = "images/blue fire2.png";
 
 // Game objects
 var garrett = {
@@ -158,7 +158,10 @@ var update = function (modifier) {
 	if (69 in keysDown) { // Player holding right
 		if (fireReady) {
 			console.log("start");
+			fireImage.x = garrettImage.x;
+			fireImage.y =garrettImage.y;
 			ctx.drawImage(fireImage, garrett.x, garrett.y);
+            firefunction();
 			console.log("finish");
 		}
 	}
@@ -174,6 +177,11 @@ var update = function (modifier) {
 		}
 	}
 };
+
+var firefunction = function () {
+	
+	setInterval(fireImage.x += 300, 0);
+}
 
 var menu = function () {
 
