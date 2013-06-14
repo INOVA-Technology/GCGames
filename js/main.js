@@ -185,6 +185,14 @@ var update = function (modifier) {
 			chase.x += chase.speed * modifier;
 		}
 	}
+
+
+	//Hit? Maybe. Dead? idk
+	if (fire.x == chase.x) {
+        chase.health -= fire.damage;
+        console.log(chase.health);
+	}
+	//console.log(fire.x);
 };
 
 var menu = function () {
