@@ -57,14 +57,16 @@ var garrett = {
 	x: 0,
 	y: 0,
 	width: 60,
-	height: 60
+	height: 60,
+	health: 100
 };
 var chase = {
 	speed: 256,
 	x: 0,
 	y: 0,
 	width: 60,
-	height: 60
+	height: 60,
+	health: 100
 };
 
 heightFromGround = garrett.height + 8;
@@ -164,7 +166,7 @@ var menu = function () {
 	    w: 70,
 	    h: 30
 	};
-	ctx.fillText(languages[lang]["play"] + ":", rect.x, rect.y + 16);    
+	ctx.fillText(languages[lang]["play"], rect.x, rect.y + 16);    
 }
 
 canvas.addEventListener('click', checkStart, false);
@@ -223,7 +225,7 @@ var render = function () {
 	ctx.font = "24px Helvetica";
 	ctx.textAlign = "left";
 	ctx.textBaseline = "top";
-	ctx.fillText(languages[lang]["health"] + ":", 32, 32);
+	ctx.fillText("Chase's " + languages[lang]["health"] + ": " + chase.health + "    " + "Garrett's " + languages[lang]["health"] + ": " + garrett.health, 32, 32);
 };
 
 // The main game loop
