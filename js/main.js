@@ -62,6 +62,14 @@ fireImage.onload = function () {
 };
 fireImage.src = "images/blue fire2.png";
 
+// block for chase image
+var shieldReady = false;
+var shieldImage = new Image();
+shieldImage.onload = function () {
+	shieldReady = true;
+};
+shieldImage.src = "images/shieldRight.png";
+
 // Game objects
 var garrett = {
 	speed: 256, // movement in pixels per second
@@ -122,6 +130,10 @@ addEventListener("keydown", function (e) {
 	if (e.keyCode === 16 && go && fireReady) {
 		firefunction(chase);
 	}
+
+	if (e.keyCode === 81 && go && shieldReady) {
+        garrettShield();
+	}
 }, false);
 
 var die = function(guy) {
@@ -131,14 +143,23 @@ var die = function(guy) {
 	ctx.font = "24px Helvetica";
 	ctx.textAlign = "left";
 	ctx.textBaseline = "middle";
-	rect = {
+	rect1 = {
 	    x: 32,
 	    y: 32,
 	    w: 70,
 	    h: 30
 	};
-	ctx.fillText(name + " " + languages[lang]["died"], rect.x, rect.y + 16);
+	ctx.fillText(name + " " + languages[lang]["died"], rect1.x, rect1.y + 16);
 }
+
+var garrettShield = function() {
+    console.log("working");
+    if (shieldReady) {
+    ctx.drawImage(shieldImage, garrett.x, garrett.y);
+    console.log("drawn");
+    }
+}
+
 
 var firefunction = function (player) {
 	if (!player.isFiring) {
@@ -149,7 +170,7 @@ var firefunction = function (player) {
 		var i = setInterval(function() {
 			//Hit? Maybe. Dead? idk
 			if (player === garrett) {
-				player.fire.x += 50;
+				player.fire.x += 25;
 				if (player.fire.x + player.fire.width >= enemy.x && player.fire.y + player.fire.height >= enemy.y && player.fire.y <= enemy.y + enemy.height) {
 					clearInterval(i);
 					player.isFiring = false;
@@ -159,7 +180,7 @@ var firefunction = function (player) {
 					player.isFiring = false;
 				}
 			} else {
-				player.fire.x -= 50;
+				player.fire.x -= 25;
 				if (player.fire.x <= enemy.x + enemy.width && player.fire.y + player.fire.height >= enemy.y && player.fire.y <= enemy.y + enemy.height) {
 					clearInterval(i);
 					player.isFiring = false;
