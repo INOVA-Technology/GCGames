@@ -1,24 +1,20 @@
 GCGames Street Fighter
 =======
 
-###What the heck is this?###
+### What the heck is this? ###
 This is some random street fighter knock-off. That should answer your question. Thanks for asking.
 
-###TO INSTALL:###
-#####Universal#####
+### TO DOWNLOAD: ###
+##### Universal #####
 Press the zip button above
-#####Mac os x:#####
-Open the terminal and type
 
-    curl -s http://github.com/INOVA-Technology/GCGames
+##### With Git #####
+    
+    git clone http://github.com/INOVA-Technology/GCGames GCGames
 
-#####Ubuntu Linux#####
-Probably something like this
-
-    wget http://github.com/INOVA-Technology/GCGames
-
-###To-Do List###
+###To-Do List ###
 - [x] Make the game function
 - [x] Local multiplayer
-- [ ] single player
-- [ ] cloud multiplayer
+- [ ] Add damage
+- [ ] Single player
+- [ ] Cloud multiplayer
