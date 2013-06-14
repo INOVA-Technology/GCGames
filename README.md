@@ -13,7 +13,7 @@ Press the zip button above then unzip it.
     git clone http://github.com/INOVA-Technology/GCGames GCGames
 
 
-After downloading, open the index.html file in your favorite browser! ( I hope its not IE... )
+After downloading, open the index.html file in your favorite browser that supports the HTML5 canvas element. If you aren't sure, any browser should work except IE <= 8
 
 ###To-Do List ###
 - [x] Make the game function
