@@ -56,20 +56,20 @@ var garrett = {
 	speed: 256, // movement in pixels per second
 	x: 0,
 	y: 0,
-	width: 55,
-	height: 53,
+	width: 60,
+	height: 60,
 	health: 100
 };
 var chase = {
 	speed: 256,
 	x: 0,
 	y: 0,
-	width: 55,
-	height: 53,
+	width: 60,
+	height: 60,
 	health: 100
 };
 
-heightFromGround = garrett.height + 8;
+heightFromGround = garrett.height + 1;
 
 // Handle keyboard controls
 var keysDown = {};
