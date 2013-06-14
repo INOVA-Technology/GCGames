@@ -51,6 +51,14 @@ chaseImage.onload = function () {
 };
 chaseImage.src = "images/chase.png";
 
+// fire image
+var fireReady = false;
+var fireImage = new Image();
+fireImage.onload = function () {
+	fireReady = true;
+};
+fireImage.src = "images/blue fire.png";
+
 // Game objects
 var garrett = {
 	speed: 256, // movement in pixels per second
@@ -67,6 +75,14 @@ var chase = {
 	width: 55,
 	height: 53,
 	health: 100
+};
+var fire = {
+    speed: 300,
+    x: 0,
+    y: 0,
+    width: 30,
+    height: 30,
+    damage: 10
 };
 
 heightFromGround = garrett.height + 8;
@@ -137,6 +153,13 @@ var update = function (modifier) {
 	if (68 in keysDown) { // Player holding right
 		if (garrett.x < canvas.width - garrett.width && !(collide(garrett, chase) === "right")) {
 			garrett.x += garrett.speed * modifier;
+		}
+	}
+	if (69 in keysDown) { // Player holding right
+		if (fireReady) {
+			console.log("start");
+			ctx.drawImage(fireImage, garrett.x, garrett.y);
+			console.log("finish");
 		}
 	}
 
