@@ -113,7 +113,13 @@ addEventListener("keydown", function (e) {
 var firefunction = function () {
 	var i = setInterval(function() {
 		fire.x += 50;
-		if (fire.x + fire.width >= canvas.width) {
+		//Hit? Maybe. Dead? idk
+		if (fire.x + fire.width >= chase.x) {
+			clearInterval(i);
+			isFiring = false;
+	        chase.health -= fire.damage;
+	        console.log(chase.health);
+		} else if (fire.x + fire.width >= canvas.width) {
 			clearInterval(i);
 			isFiring = false;
 		}
@@ -186,13 +192,6 @@ var update = function (modifier) {
 		}
 	}
 
-
-	//Hit? Maybe. Dead? idk
-	if (fire.x == chase.x) {
-        chase.health -= fire.damage;
-        console.log(chase.health);
-	}
-	//console.log(fire.x);
 };
 
 var menu = function () {
