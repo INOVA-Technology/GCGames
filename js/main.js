@@ -160,10 +160,15 @@ var menu = function () {
     y: 32,
     w: 70,
     h: 30
-};
+	};
 	ctx.fillText("play", rect.x, rect.y + 16);
     
-    canvas.addEventListener('click', checkStart, false);
+}
+
+menu();
+
+
+canvas.addEventListener('click', checkStart, false);
 	function checkStart(e) {
         var p = getMousePos(e);
 
@@ -173,12 +178,7 @@ var menu = function () {
             go = !go;
             if (go === true) {
             	// Let's play this game!
-                reset();
-
-				var then = Date.now();
-				setInterval(main, 1); // Execute as fast as possible
-				
-				var main = function () {
+            	var main = function () {
 					var now = Date.now();
 					var delta = now - then;
 
@@ -187,6 +187,11 @@ var menu = function () {
 
 					then = now;
 				};
+                reset();
+
+				var then = Date.now();
+				setInterval(main, 1); // Execute as fast as possible
+				
             } else {
                 
             }
@@ -200,7 +205,6 @@ var menu = function () {
                 y: e.clientY - r.top
             };
         }
-}
 
 // Draw game
 var render = function () {
@@ -229,6 +233,5 @@ var render = function () {
 
 
     
-menu();
 // Let's play this game!
 
