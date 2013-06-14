@@ -125,6 +125,9 @@ var firefunction = function (player) {
 					clearInterval(i);
 					player.isFiring = false;
 			        enemy.health -= fire.damage;
+			        if(enemy.health <= 0) {
+			        	die(enemy);
+			        }
 				} else if (fire.x + fire.width >= canvas.width) {
 					clearInterval(i);
 					player.isFiring = false;
@@ -135,6 +138,9 @@ var firefunction = function (player) {
 					clearInterval(i);
 					player.isFiring = false;
 			        enemy.health -= fire.damage;
+			        if(enemy.health <= 0) {
+			        	die(enemy);
+			        }
 				} else if (fire.x <= 0) {
 					clearInterval(i);
 					player.isFiring = false;
@@ -142,6 +148,22 @@ var firefunction = function (player) {
 			}
 		}, 25);
 	}
+}
+
+var die = function(guy) {
+	ctx.clearRect ( 0 , 0 , canvas.width , canvas.height );
+
+	ctx.fillStyle = "rgb(250, 250, 250)";
+	ctx.font = "24px Helvetica";
+	ctx.textAlign = "left";
+	ctx.textBaseline = "middle";
+	rect = {
+	    x: 32,
+	    y: 32,
+	    w: 70,
+	    h: 30
+	};
+	ctx.fillText("test" + languages[lang]["play"], rect.x, rect.y + 16);
 }
 
 addEventListener("keyup", function (e) {
