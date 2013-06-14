@@ -6,11 +6,14 @@ This is some random street fighter knock-off. That should answer your question. 
 
 ### TO DOWNLOAD: ###
 ##### Universal #####
-Press the zip button above
+Press the zip button above then unzip it.
 
 ##### With Git #####
     
     git clone http://github.com/INOVA-Technology/GCGames GCGames
+
+
+After downloading, open the index.html file in your favorite browser! ( I hope its not IE... )
 
 ###To-Do List ###
 - [x] Make the game function
