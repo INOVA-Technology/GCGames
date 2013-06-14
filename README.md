@@ -15,9 +15,10 @@ Press the zip button above then unzip it.
 
 After downloading, open the index.html file in your favorite browser that supports the HTML5 canvas element. If you aren't sure, any browser should work except IE <= 8
 
-###To-Do List ###
+### To-Do List ###
 - [x] Make the game function
 - [x] Local multiplayer
 - [ ] Add damage
 - [ ] Single player
 - [ ] Cloud multiplayer
+- [ ] Get this todo list to show up correctly
