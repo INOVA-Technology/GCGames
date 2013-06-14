@@ -18,7 +18,8 @@ After downloading, open the index.html file in your favorite browser that suppor
 ### To-Do List ###
 - [x] Make the game function
 - [x] Local multiplayer
-- [ ] Add damage
+- [ ] Blocking
+- [x] Add damage
 - [ ] Single player
 - [ ] Cloud multiplayer
 - [ ] Get this todo list to show up correctly
