@@ -85,6 +85,8 @@ var fire = {
     damage: 10
 };
 
+isFiring = false
+
 heightFromGround = garrett.height + 1;
 
 // Handle keyboard controls
@@ -99,7 +101,24 @@ addEventListener("keydown", function (e) {
 		player = (e.keyCode === 87) ? garrett : chase,
 		jump(player);
 	}
+
+	if (e.keyCode === 69 && go && fireReady) {
+		fire.x = garrett.x;
+		fire.y = garrett.y;
+		isFiring = true;
+        firefunction();
+	}
 }, false);
+
+var firefunction = function () {
+	var i = setInterval(function() {
+		fire.x += 50;
+		if (fire.x + fire.width >= canvas.width) {
+			clearInterval(i);
+			isFiring = false;
+		}
+	}, 25);
+}
 
 addEventListener("keyup", function (e) {
 	delete keysDown[e.keyCode];
@@ -155,16 +174,6 @@ var update = function (modifier) {
 			garrett.x += garrett.speed * modifier;
 		}
 	}
-	if (69 in keysDown) { // Player holding right
-		if (fireReady) {
-			console.log("start");
-			fireImage.x = garrettImage.x;
-			fireImage.y =garrettImage.y;
-			ctx.drawImage(fireImage, garrett.x, garrett.y);
-            firefunction();
-			console.log("finish");
-		}
-	}
 
 	if (37 in keysDown) { // Player holding left
 		if (chase.x > 0 && !(collide(garrett, chase) === "right")) {
@@ -177,11 +186,6 @@ var update = function (modifier) {
 		}
 	}
 };
-
-var firefunction = function () {
-	
-	setInterval(fireImage.x += 300, 0);
-}
 
 var menu = function () {
 
@@ -249,6 +253,10 @@ var render = function () {
 
 	if (chaseReady) {
 		ctx.drawImage(chaseImage, chase.x, chase.y);
+	}
+
+	if (isFiring) {
+		ctx.drawImage(fireImage, fire.x, fire.y);
 	}
 
 	// Health
