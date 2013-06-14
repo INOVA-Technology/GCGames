@@ -162,6 +162,44 @@ var menu = function () {
     h: 30
 };
 	ctx.fillText("play", rect.x, rect.y + 16);
+    
+    canvas.addEventListener('click', checkStart, false);
+	function checkStart(e) {
+        var p = getMousePos(e);
+
+        if (p.x >= rect.x && p.x <= rect.x + rect.w &&
+            p.y >= rect.y && p.y <= rect.y + rect.h) {
+            
+            go = !go;
+            if (go === true) {
+            	// Let's play this game!
+                reset();
+
+				var then = Date.now();
+				setInterval(main, 1); // Execute as fast as possible
+				
+				var main = function () {
+					var now = Date.now();
+					var delta = now - then;
+
+					update(delta / 1000);
+					render();
+
+					then = now;
+				};
+            } else {
+                
+            }
+        }
+    }
+
+        function getMousePos(e) {
+            var r = canvas.getBoundingClientRect();
+            return {
+                x: e.clientX - r.left,
+                y: e.clientY - r.top
+            };
+        }
 }
 
 // Draw game
@@ -186,43 +224,11 @@ var render = function () {
 };
 
 // The main game loop
-var main = function () {
-	var now = Date.now();
-	var delta = now - then;
 
-	update(delta / 1000);
-	render();
 
-	then = now;
-};
 
-canvas.addEventListener('click', checkStart, false);
 
-    function checkStart(e) {
-        var p = getMousePos(e);
-
-        if (p.x >= rect.x && p.x <= rect.x + rect.w &&
-            p.y >= rect.y && p.y <= rect.y + rect.h) {
-            
-            go = !go;
-            if (go === true) {
-            	// Let's play this game!
-                reset();
-				var then = Date.now();
-				setInterval(main, 1); // Execute as fast as possible
-            } else {
-                menu();
-            }
-        }
-    }
-
-        function getMousePos(e) {
-            var r = canvas.getBoundingClientRect();
-            return {
-                x: e.clientX - r.left,
-                y: e.clientY - r.top
-            };
-        }
-
+    
+menu();
 // Let's play this game!
 
