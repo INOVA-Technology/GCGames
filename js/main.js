@@ -1,15 +1,18 @@
 var languages = {
 	"english": {
 		health: "Health",
-		play: "Play"
+		play: "Play",
+		died: "died"
 	},
 	"spanish": {
 		health: "Salud",
-		play: "Jugar"
+		play: "Jugar",
+		died: "muerto"
 	},
 	"french": {
 		health: "Santé",
-		play: "Jouer"
+		play: "Jouer",
+		died: "mort"
 	}
 }
 var go = false,
@@ -68,6 +71,7 @@ var garrett = {
 	height: 60,
 	health: 100,
 	isFiring: false,
+	isDead: false,
 	fire: {
 	    speed: 300,
 	    x: 0,
@@ -85,6 +89,7 @@ var garrett = {
 		height: 60,
 		health: 100,
 		isFiring: false,
+		isDead: false,
 		fire: {
 		    speed: 300,
 		    x: 0,
@@ -119,6 +124,22 @@ addEventListener("keydown", function (e) {
 	}
 }, false);
 
+var die = function(guy) {
+	name = (guy === garrett) ? "Garrett" : "Chase";
+	ctx.clearRect ( 0 , 0 , canvas.width , canvas.height );
+	ctx.fillStyle = "rgb(250, 250, 250)";
+	ctx.font = "24px Helvetica";
+	ctx.textAlign = "left";
+	ctx.textBaseline = "middle";
+	rect = {
+	    x: 32,
+	    y: 32,
+	    w: 70,
+	    h: 30
+	};
+	ctx.fillText(name + " " + languages[lang]["died"], rect.x, rect.y + 16);
+}
+
 var firefunction = function (player) {
 	if (!player.isFiring) {
 		player.fire.x = player.x;
@@ -148,6 +169,9 @@ var firefunction = function (player) {
 					player.isFiring = false;
 				}
 			}
+	        if (enemy.health <= 0) {
+	        	enemy.isDead = true;
+	        }
 		}, 25);
 	}
 }
@@ -251,18 +275,22 @@ canvas.addEventListener('click', checkStart, false);
 					var now = Date.now();
 					var delta = now - then;
 
-					update(delta / 1000);
-					render();
+					if (garrett.isDead) {
+	            		die(garrett);
+	            	} else if (chase.isDead) {
+	            		die(chase);
+	            	} else {
+						update(delta / 1000);
+						render();
 
-					then = now;
+						then = now;
+					}
 				};
                 reset();
 
 				var then = Date.now();
 				setInterval(main, 1); // Execute as fast as possible
 				
-            } else {
-                
             }
         }
     }
