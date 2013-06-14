@@ -12,10 +12,10 @@ var languages = {
 		play: "Jouer"
 	}
 }
-var go = false;
-var rect;
+var go = false,
+	lang = "english",
+	rect;
 
-var lang = "english";
 document.getElementById('lang').addEventListener('change', function() {
 	lang = this.value;
 	if (!go) {
@@ -67,27 +67,35 @@ var garrett = {
 	width: 60,
 	height: 60,
 	health: 100,
-	isFiring: false
-};
-var chase = {
-	speed: 256,
-	x: 0,
-	y: 0,
-	width: 60,
-	height: 60,
-	health: 100,
-	isFiring: false
-};
-var fire = {
-    speed: 300,
-    x: 0,
-    y: 0,
-    width: 30,
-    height: 30,
-    damage: 10
-};
+	isFiring: false,
+	fire: {
+	    speed: 300,
+	    x: 0,
+	    y: 0,
+	    width: 30,
+	    height: 30,
+	    damage: 10
+	}
+},
+	chase = {
+		speed: 256,
+		x: 0,
+		y: 0,
+		width: 60,
+		height: 60,
+		health: 100,
+		isFiring: false,
+		fire: {
+		    speed: 300,
+		    x: 0,
+		    y: 0,
+		    width: 30,
+		    height: 30,
+		    damage: 10
+		}
+	},
 
-heightFromGround = garrett.height + 1;
+	heightFromGround = garrett.height + 1;
 
 // Handle keyboard controls
 var keysDown = {};
@@ -113,29 +121,29 @@ addEventListener("keydown", function (e) {
 
 var firefunction = function (player) {
 	if (!player.isFiring) {
-		fire.x = player.x;
-		fire.y = player.y;
+		player.fire.x = player.x;
+		player.fire.y = player.y;
 		player.isFiring = true;
 		enemy = (player === garrett) ? chase : garrett;
 		var i = setInterval(function() {
 			//Hit? Maybe. Dead? idk
 			if (player === garrett) {
-				fire.x += 50;
-				if (fire.x + fire.width >= enemy.x && fire.y + fire.height >= enemy.y && fire.y <= enemy.y + enemy.height) {
+				player.fire.x += 50;
+				if (player.fire.x + player.fire.width >= enemy.x && player.fire.y + player.fire.height >= enemy.y && player.fire.y <= enemy.y + enemy.height) {
 					clearInterval(i);
 					player.isFiring = false;
-			        enemy.health -= fire.damage;
-				} else if (fire.x + fire.width >= canvas.width) {
+			        enemy.health -= player.fire.damage;
+				} else if (player.fire.x + player.fire.width >= canvas.width) {
 					clearInterval(i);
 					player.isFiring = false;
 				}
 			} else {
-				fire.x -= 50;
-				if (fire.x <= enemy.x + enemy.width && fire.y + fire.height >= enemy.y && fire.y <= enemy.y + enemy.height) {
+				player.fire.x -= 50;
+				if (player.fire.x <= enemy.x + enemy.width && player.fire.y + player.fire.height >= enemy.y && player.fire.y <= enemy.y + enemy.height) {
 					clearInterval(i);
 					player.isFiring = false;
-			        enemy.health -= fire.damage;
-				} else if (fire.x <= 0) {
+					enemy.health -= player.fire.damage;
+				} else if (player.fire.x <= 0) {
 					clearInterval(i);
 					player.isFiring = false;
 				}
@@ -281,11 +289,11 @@ var render = function () {
 	}
 
 	if (garrett.isFiring) {
-		ctx.drawImage(fireImage, fire.x, fire.y);
+		ctx.drawImage(fireImage, garrett.fire.x, garrett.fire.y);
 	}
 
 	if (chase.isFiring) {
-		ctx.drawImage(fireImage, fire.x, fire.y);
+		ctx.drawImage(fireImage, chase.fire.x, chase.fire.y);
 	}
 
 	// Health
