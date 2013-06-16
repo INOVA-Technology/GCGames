@@ -351,7 +351,8 @@ var render = function () {
 	ctx.textAlign = "left";
 	ctx.textBaseline = "top";
 	ctx.fillText("Garrett's " + languages[lang]["health"] + ": " + garrett.health, 32, 32);
-	ctx.fillText("Chase's " + languages[lang]["health"] + ": " + chase.health, canvas.width - 250, 32);
+	ctx.textAlign = "right";
+	ctx.fillText("Chase's " + languages[lang]["health"] + ": " + chase.health, canvas.width - 32, 32);
 };
 
 // Let's play this game!
