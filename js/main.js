@@ -62,6 +62,14 @@ fireImage.onload = function () {
 };
 fireImage.src = "images/blue fire2.png";
 
+var fire2Ready = false;
+var fire2Image = new Image();
+fire2Image.onload = function() {
+	fire2Ready = true;
+};
+fire2Image.src = "images/blue fire3.png";
+
+
 // block for chase image
 var shieldReady = false;
 var shieldImage = new Image();
@@ -70,27 +78,9 @@ shieldImage.onload = function () {
 };
 shieldImage.src = "images/shieldRight.png";
 
-// Game objects
-var garrett = {
-	speed: 256, // movement in pixels per second
-	x: 0,
-	y: 0,
-	width: 60,
-	height: 60,
-	health: 100,
-	isFiring: false,
-	isDead: false,
-	fire: {
-	    speed: 300,
-	    x: 0,
-	    y: 0,
-	    width: 30,
-	    height: 30,
-	    damage: 10
-	}
-},
-	chase = {
-		speed: 256,
+function createPlayer() {
+	return {
+		speed: 256, // movement in pixels per second
 		x: 0,
 		y: 0,
 		width: 60,
@@ -105,9 +95,49 @@ var garrett = {
 		    width: 30,
 		    height: 30,
 		    damage: 10
-		}
-	},
+		}, 
+		firefunction: function () {
+			if (!this.isFiring) {
+				this.fire.x = this.x;
+				this.fire.y = this.y;
+				this.isFiring = true;
+				var enemy = (this === garrett) ? chase : garrett;
+				var player = this;
+				var i = setInterval(function() {
+					//Hit? Maybe. Dead? idk
+					if (player === garrett) {
+						player.fire.x += 25;
+						if (player.fire.x + player.fire.width >= enemy.x && player.fire.y + player.fire.height >= enemy.y && player.fire.y <= enemy.y + enemy.height) {
+							clearInterval(i);
+							player.isFiring = false;
+					        enemy.health -= player.fire.damage;
+						} else if (player.fire.x + player.fire.width >= canvas.width) {
+							clearInterval(i);
+							player.isFiring = false;
+						}
+					} else {
+						player.fire.x -= 25;
+						if (player.fire.x <= enemy.x + enemy.width && player.fire.y + player.fire.height >= enemy.y && player.fire.y <= enemy.y + enemy.height) {
+							clearInterval(i);
+							player.isFiring = false;
+							enemy.health -= player.fire.damage;
+						} else if (player.fire.x <= 0) {
+							clearInterval(i);
+							player.isFiring = false;
+						}
+					}
+			        if (enemy.health <= 0) {
+			        	enemy.isDead = true;
+			        }
+				}, 25);
+			}
+		} // end of firefunction
+	}
+}
 
+// Game objects
+var garrett = createPlayer(),
+	chase = createPlayer(),
 	heightFromGround = garrett.height + 1;
 
 // Handle keyboard controls
@@ -124,11 +154,11 @@ addEventListener("keydown", function (e) {
 	}
 
 	if (e.keyCode === 69 && go && fireReady) {
-        firefunction(garrett);
+        garrett.firefunction();
 	}
 
 	if (e.keyCode === 16 && go && fireReady) {
-		firefunction(chase);
+		chase.firefunction();
 	}
 
 	if (e.keyCode === 81 && go && shieldReady) {
@@ -158,43 +188,6 @@ var garrettShield = function() {
     ctx.drawImage(shieldImage, garrett.x, garrett.y);
     console.log("drawn");
     }
-}
-
-
-var firefunction = function (player) {
-	if (!player.isFiring) {
-		player.fire.x = player.x;
-		player.fire.y = player.y;
-		player.isFiring = true;
-		enemy = (player === garrett) ? chase : garrett;
-		var i = setInterval(function() {
-			//Hit? Maybe. Dead? idk
-			if (player === garrett) {
-				player.fire.x += 25;
-				if (player.fire.x + player.fire.width >= enemy.x && player.fire.y + player.fire.height >= enemy.y && player.fire.y <= enemy.y + enemy.height) {
-					clearInterval(i);
-					player.isFiring = false;
-			        enemy.health -= player.fire.damage;
-				} else if (player.fire.x + player.fire.width >= canvas.width) {
-					clearInterval(i);
-					player.isFiring = false;
-				}
-			} else {
-				player.fire.x -= 25;
-				if (player.fire.x <= enemy.x + enemy.width && player.fire.y + player.fire.height >= enemy.y && player.fire.y <= enemy.y + enemy.height) {
-					clearInterval(i);
-					player.isFiring = false;
-					enemy.health -= player.fire.damage;
-				} else if (player.fire.x <= 0) {
-					clearInterval(i);
-					player.isFiring = false;
-				}
-			}
-	        if (enemy.health <= 0) {
-	        	enemy.isDead = true;
-	        }
-		}, 25);
-	}
 }
 
 addEventListener("keyup", function (e) {
@@ -337,12 +330,12 @@ var render = function () {
 		ctx.drawImage(chaseImage, chase.x, chase.y);
 	}
 
-	if (garrett.isFiring) {
+	if (garrett.isFiring && fireReady) {
 		ctx.drawImage(fireImage, garrett.fire.x, garrett.fire.y);
 	}
 
-	if (chase.isFiring) {
-		ctx.drawImage(fireImage, chase.fire.x, chase.fire.y);
+	if (chase.isFiring && fire2Ready) {
+		ctx.drawImage(fire2Image, chase.fire.x, chase.fire.y);
 	}
 
 	// Health
