@@ -258,7 +258,7 @@ var update = function (modifier) {
 		}
 	}
 	if (39 in keysDown) { // Player holding right
-		if (chase.x < canvas.width - chase.width) {
+	if (chase.x < canvas.width - chase.width) {
 			chase.x += chase.speed * modifier;
 		}
 	}
@@ -271,15 +271,15 @@ var menu = function () {
 
 	ctx.fillStyle = "rgb(250, 250, 250)";
 	ctx.font = "24px Helvetica";
-	ctx.textAlign = "left";
 	ctx.textBaseline = "middle";
 	rect = {
-	    x: 32,
-	    y: 32,
-	    w: 70,
-	    h: 30
+	    x: canvas.width / 2 - 50,
+	    y: canvas.height / 2 - 25,
+	    w: 100,
+	    h: 50
 	};
-	ctx.fillText(languages[lang]["play"], rect.x, rect.y + 16);    
+	ctx.textAlign = "left";
+	ctx.fillText(languages[lang]["play"], rect.x + 25, rect.y + 25);
 }
 
 canvas.addEventListener('click', checkStart, false);
@@ -293,16 +293,16 @@ canvas.addEventListener('click', checkStart, false);
             if (go) {
             	// Let's play this game!
             	var main = function () {
-					var now = Date.now();
-					var delta = now - then;
+							var now = Date.now();
+							var delta = now - then;
 
-					if (garrett.isDead) {
+							if (garrett.isDead) {
 	            		die(garrett);
 	            	} else if (chase.isDead) {
 	            		die(chase);
 	            	} else {
-						update(delta / 1000);
-						render();
+									update(delta / 1000);
+									render();
 
 						then = now;
 					}
